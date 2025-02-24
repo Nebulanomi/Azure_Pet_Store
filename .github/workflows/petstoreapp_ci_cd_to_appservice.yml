@@ -50,7 +50,7 @@ jobs:
 # CD
 
     - name: Upload Maven build artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: artifact
         path: petstore/petstoreapp/target/petstoreapp-0.0.1-SNAPSHOT.jar
