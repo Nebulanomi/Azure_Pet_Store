@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: aks-petstorepetservice
-        image: azurepetstorecr.azurecr.io/petstorepetservice:latest
+        image: nebulanomiazurepetstorecr.azurecr.io/petstorepetservice:latest
         ports:
         - containerPort: 80
         env:
@@ -29,5 +29,3 @@ spec:
   type: ClusterIP
   ports:
   - port: 80
-  selector:
-    app: aks-petstorepetservice
