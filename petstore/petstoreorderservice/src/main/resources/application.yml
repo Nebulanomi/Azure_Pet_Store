@@ -22,9 +22,9 @@ spring:
       #pricing-tier: Standard
       #topic-client-id: ${PETSTOREORDERSERVICE_SUBSCRIPTION_ID}  
 
-#azure:
-#    application-insights:
-#      instrumentation-key: ${PETSTORESERVICES_AI_INSTRUMENTATION_KEY}
+azure:
+    application-insights:
+      instrumentation-key: ${PETSTORESERVICES_AI_INSTRUMENTATION_KEY}
 
 management:
   endpoints:

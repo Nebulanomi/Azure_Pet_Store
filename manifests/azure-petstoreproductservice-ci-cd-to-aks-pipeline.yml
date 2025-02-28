@@ -16,7 +16,7 @@ resources:
 variables:
 
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: 'azurepetstoremecr'
+  dockerRegistryServiceConnection: 'eca1cc5c-10ab-4570-886e-84d8a53b3f44'
   imageRepository: 'petstoreproductservice'
   containerRegistry: 'nebulanomiazurepetstorecr.azurecr.io'
   dockerfilePath: 'petstore/petstoreproductservice/Dockerfile'
@@ -27,15 +27,6 @@ stages:
 - stage: Build
   displayName: Build stage
   jobs: 
-  #- job: Analysis
-  #  displayName: Security Analysis
-  #  pool:
-  #    vmImage: 'windows-latest'
-  #  steps:
-    #- task: CredScan@2
-    #  inputs:
-    #    toolMajorVersion: 'V2'
- 
   - job: Build
     displayName: Build App
     pool:
@@ -89,7 +80,7 @@ stages:
             inputs:
               action: deploy
               kubernetesServiceConnection: nebulanomi-akscluster-ingress-petstoreservices
-              namespace: ingress-basic
+              namespace: ingress-petstoreservices
               manifests: |
                 $(Pipeline.Workspace)/manifests/petstoreproductservice-deployment-everything-enabled.yml
                 $(Pipeline.Workspace)/manifests/petstoreproductservice-service-everything-enabled.yml
@@ -97,19 +88,3 @@ stages:
                 $(imagePullSecret)
               containers: |
                 $(containerRegistry)/$(imageRepository):$(tag)
-                
-- stage: Automation
-  displayName: Automation stage
-  jobs: 
-  - job: Automation
-    displayName: Automation Testing
-    pool:
-      vmImage: 'windows-latest'
-    steps:
-        - task: TriggerPipeline@1
-          inputs:
-            serviceConnection: 'Automation'
-            project: '6b3206dd-90b3-40f6-a611-e5a1e5a13593'
-            Pipeline: 'Build'
-            buildDefinition: 'azure-petstoreautomation-regression-tests'
-            Branch: 'main'
