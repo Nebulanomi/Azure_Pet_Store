@@ -15,10 +15,10 @@ resources:
 
 variables:
 
-  # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: 'azurepetstoremecr'
+# Container registry service connection established during pipeline creation
+dockerRegistryServiceConnection: 'azurepetstoremecr'
   imageRepository: 'petstoreorderservice'
-  containerRegistry: 'azurepetstoremecr.azurecr.io'
+  containerRegistry: 'nebulanomiazurepetstorecr.azurecr.io'
   dockerfilePath: 'petstore/petstoreorderservice/Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: '$(crImagePullSecretGlobalV2)'
@@ -88,7 +88,7 @@ stages:
             displayName: Deploy to Kubernetes cluster
             inputs:
               action: deploy
-              kubernetesServiceConnection: azurepetstoreservices-akscluster
+              kubernetesServiceConnection: nebulanomi-akscluster-ingress-petstoreservices
               namespace: ingress-basic
               manifests: |
                 $(Pipeline.Workspace)/manifests/petstoreorderservice-deployment-everything-enabled.yml

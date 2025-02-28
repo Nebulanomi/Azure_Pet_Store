@@ -18,7 +18,7 @@ variables:
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: 'azurepetstoremecr'
   imageRepository: 'petstorepetservice'
-  containerRegistry: 'azurepetstoremecr.azurecr.io'
+  containerRegistry: 'nebulanomiazurepetstorecr.azurecr.io'
   dockerfilePath: 'petstore/petstorepetservice/Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: '$(crImagePullSecretGlobalV3)'
@@ -43,14 +43,14 @@ stages:
     steps:
     - script: echo -n -e "{\"version\":\"$(Build.BuildNumber) - $(tag)\"}" > petstore/petstorepetservice/src/main/resources/version.json
 
-    - task: Maven@3
+    - task: Maven@4
       continueOnError: true 
       displayName: Build Spring Boot Jar
       inputs:
         mavenPomFile: 'petstore/petstorepetservice/pom.xml'
         mavenOptions: '-Xmx3072m'
         javaHomeOption: 'JDKVersion'
-        jdkVersionOption: '8'
+        jdkVersionOption: '1.11'
         jdkArchitectureOption: 'x64'
         publishJUnitResults: true
         testResultsFiles: 'petstore/petstorepetservice/target/surefire-reports/TEST-*.xml'
